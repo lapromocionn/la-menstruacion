@@ -67,6 +67,36 @@ fi
 echo "📂 Configurando el repositorio..."
 git config credential.helper store
 
+# --- NUEVO: Configuración de GitHub ---
+if [ -z "$(git config --global user.email)" ]; then
+    echo "⚠️ No tienes Git configurado."
+    echo "¿Tienes cuenta en GitHub? (s/n)"
+    read -r has_github
+    if [ "$has_github" = "n" ]; then
+        echo "📋 Crea tu cuenta gratis en: https://github.com/signup"
+        echo "Cuando la tengas, pulsa ENTER para continuar..."
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            open "https://github.com/signup"
+        fi
+        read -r
+    fi
+    echo "Introduce tu email de GitHub:"
+    read -r git_email
+    echo "Introduce tu usuario de GitHub:"
+    read -r git_user
+    git config --global user.email "$git_email"
+    git config --global user.name "$git_user"
+    echo "✅ Git configurado como $git_user"
+else
+    echo "✅ Git ya configurado: $(git config --global user.name)"
+fi
+
+echo -e "\n📨 Dile a LaPromocion que te añada como colaborador en:"
+echo "https://github.com/lapromocionn/la-menstruacion/settings/access"
+echo "Pulsa ENTER cuando David te haya añadido..."
+read -r
+# -------------------------------------
+
 # 8. Exportar Memoria de Claude a habilidades_base.md
 echo "🧠 Exportando perfiles de habilidades desde la memoria de Claude..."
 if command -v claude &> /dev/null; then
