@@ -1,6 +1,15 @@
 #!/bin/bash
 # sync_red.sh - Sincronización asíncrona (Offline-First)
 
+# 0. Configuración de entorno y credenciales
+# Asegurar que el helper de credenciales esté configurado
+if ! git config --global credential.helper | grep -q "store"; then
+    git config --global credential.helper store
+fi
+
+# Deshabilitar prompts interactivos para evitar bloqueos
+export GIT_TERMINAL_PROMPT=0
+
 # Asegurar que el script se ejecute desde su directorio
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR"
@@ -29,11 +38,27 @@ fi
 # 2. Sincronización del código fuente y cerebro
 echo "Sincronizando Git en $PWD..."
 if [ -d ".git" ]; then
-    git pull origin main --rebase
+    # Preparamos los cambios locales
     git add .
-    git commit -m "🧠 Auto-sync: Código y Cerebro IA sincronizados"
-    git push origin main
-    echo "Sincronización completa."
+    
+    # Solo hacemos commit si hay cambios
+    if ! git diff --cached --quiet; then
+        git commit -m "🧠 Auto-sync: Código y Cerebro IA sincronizados"
+    fi
+
+    # Intentamos traer cambios remotos
+    if git pull origin main --rebase; then
+        # Intentamos subir (usará el credential helper almacenado)
+        if git push origin main; then
+            echo "Sincronización completa."
+        else
+            echo "Error: El push falló. Verifica tus credenciales o conexión."
+            exit 1
+        fi
+    else
+        echo "Error: El pull falló. Resuelve conflictos manualmente."
+        exit 1
+    fi
 else
     echo "Error: No se encontró el repositorio Git en $PWD"
     exit 1
