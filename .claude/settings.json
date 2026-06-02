@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PROJ=/home/lapromocion/proyecto-conjunto; LOG=\"$PROJ/obsidian_brain/02_Buzon_IA/session_log.md\"; LAST=$(grep -o '<date>[^<]*</date>' \"$LOG\" 2>/dev/null | tail -1 | sed 's/<[^>]*>//g'); TODAY=$(date +%Y-%m-%d); DAYS=$(( ( $(date -d \"$TODAY\" +%s) - $(date -d \"${LAST:-1970-01-01}\" +%s) ) / 86400 )); CHANGED=$(git -C \"$PROJ\" diff --name-only HEAD~1 2>/dev/null | head -20 | tr '\\n' ' '); if [ \"${DAYS:-999}\" -gt 7 ] || [ -z \"$LAST\" ]; then MODE=\"FULL_REREAD\"; else MODE=\"DELTA\"; fi; printf '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"[DELTA_PROTOCOL] last_session=%s days_ago=%s mode=%s changed_files: %s\"}}\\n' \"$LAST\" \"$DAYS\" \"$MODE\" \"$CHANGED\"",
+            "statusMessage": "Running Delta Protocol..."
+          }
+        ]
+      }
+    ]
+  }
+}

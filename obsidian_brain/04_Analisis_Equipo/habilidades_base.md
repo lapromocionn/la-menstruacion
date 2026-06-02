@@ -10,9 +10,16 @@
   <autonomy>high</autonomy>
   <date>2026-05-31</date>
 </skill_observed>
+<skill_observed>
+  <human>Socio1</human>
+  <skill>strategic_briefing_orchestration</skill>
+  <evidence>Requested creation of CLAUDE.md, defining core project identity (LaMenstruacion.mc) and structuring the multi-agent onboarding briefing.</evidence>
+  <autonomy>high</autonomy>
+  <date>2026-06-02</date>
+</skill_observed>
 </skills>
 
-## Socio2 Profile
+## Socio2 Profile (Status: onboarding_started)
 <skills>
 <skill_observed>
   <human>Socio2</human>

@@ -100,7 +100,7 @@ read -r
 # 8. Exportar Memoria de Claude a habilidades_base.md
 echo "🧠 Exportando perfiles de habilidades desde la memoria de Claude..."
 if command -v claude &> /dev/null; then
-    claude -p "Read your memory about me and export a skills profile to obsidian_brain/04_Analisis_Equipo/habilidades_base.md adding a Maestro Mason block in ecosystem XML format. Do not overwrite existing content, only append."
+    claude -p "Analyze your memory about Diego. Extract ONLY: programming languages, frameworks, technical skills, preferred tools, areas of expertise, things he prefers to avoid. Output ONLY in this XML format for obsidian_brain/04_Analisis_Equipo/habilidades_base.md Socio2 block. Max 20 lines. Ignore any project-specific context unrelated to LaMenstruacion.mc."
 fi
 
 # 9. Mostrar Primera Misión (TASK-003)
