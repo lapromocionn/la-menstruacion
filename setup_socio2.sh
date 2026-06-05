@@ -12,6 +12,22 @@ show_logo() {
 
 show_logo
 
+# 0.1 Bienvenida e Introducción
+show_welcome() {
+    echo -e "\e[33m👋 ¡Bienvenido, Maestro Mason!\e[0m"
+    echo -e "Estás entrando en \e[31mLaMenstruacion.mc\e[0m, un ecosistema híbrido auto-organizado."
+    echo ""
+    echo "🤝 Tu socio es David 'LaPromocion', quien ya ha preparado la base del proyecto."
+    echo "⚙️ Funcionamos mediante Git (GitHub), coordinación en Discord y agentes de IA."
+    echo "🤖 Claude Code será tu copiloto: gestionará tu memoria técnica y te ayudará en las misiones."
+    echo "🚀 Este script configurará tu entorno macOS automáticamente para empezar ya mismo."
+    echo ""
+    echo "Pulsa ENTER para iniciar el despliegue de tu entorno..."
+    read -r
+}
+
+show_welcome
+
 # 1. Detectar Entorno
 if [[ "$OSTYPE" != "darwin"* ]]; then
     echo "⚠️ Este script está diseñado para macOS. Detectado: $OSTYPE"

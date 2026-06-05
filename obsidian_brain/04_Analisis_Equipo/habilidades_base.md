@@ -17,6 +17,13 @@
   <autonomy>high</autonomy>
   <date>2026-06-02</date>
 </skill_observed>
+<skill_observed>
+  <human>Socio1</human>
+  <skill>full_stack_product_shipping</skill>
+  <evidence>Shipped diary app migration from IndexedDB to Supabase: schema design, two-user auth, realtime feed, drawing canvas, Storage uploads, GitHub deploy. End-to-end in one session.</evidence>
+  <autonomy>high</autonomy>
+  <date>2026-06-05</date>
+</skill_observed>
 </skills>
 
 ## Socio2 Profile (Status: onboarding_started)
@@ -32,8 +39,8 @@
 
 ## Ecosystem Health
 <stats>
-  <sessions_logged>1</sessions_logged>
-  <skills_detected_socio1>1</skills_detected_socio1>
+  <sessions_logged>3</sessions_logged>
+  <skills_detected_socio1>3</skills_detected_socio1>
   <skills_detected_socio2>1</skills_detected_socio2>
-  <last_updated>2026-05-31</last_updated>
+  <last_updated>2026-06-05</last_updated>
 </stats>
