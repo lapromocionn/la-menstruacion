@@ -1,0 +1,40 @@
+name: Deploy Dashboard to Vercel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/dashboard/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/dashboard/package-lock.json
+
+      - name: Install dependencies
+        working-directory: src/dashboard
+        run: npm ci
+
+      - name: Build
+        working-directory: src/dashboard
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: npm run build
+
+      - name: Deploy to Vercel
+        working-directory: src/dashboard
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npx vercel --token "$VERCEL_TOKEN" --prod --yes
