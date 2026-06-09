@@ -1,0 +1,37 @@
+{
+  "name": "LaMenstruacion.mc",
+  "short_name": "LaM.mc",
+  "description": "Multi-agent ecosystem dashboard",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tasks",
+      "url": "/?section=tasks",
+      "description": "View pending tasks"
+    },
+    {
+      "name": "Sessions",
+      "url": "/?section=sessions",
+      "description": "View session log"
+    }
+  ]
+}

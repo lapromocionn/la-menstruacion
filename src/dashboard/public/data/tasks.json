@@ -1,0 +1,22 @@
+[
+  {
+    "id": "001",
+    "title": "Install and configure Obsidian",
+    "status": "completed",
+    "assignee": "Socio1",
+    "completed_date": "2026-06-05",
+    "result": "Obsidian 1.12.7 installed. Vault config at obsidian_brain/.obsidian/. Dark theme, graph, tags, daily-notes, CSS snippet deployed.",
+    "pending_action": "Socio1 must open vault: \\\\wsl$\\kali-linux\\home\\lapromocion\\proyecto-conjunto\\obsidian_brain",
+    "updated_at": "2026-06-05"
+  },
+  {
+    "id": "003",
+    "title": "Build LaMenstruacion.mc Dashboard",
+    "status": "in_progress",
+    "assignee": "Socio2",
+    "completed_date": null,
+    "result": null,
+    "pending_action": "Monitor TASK-003 progress.",
+    "updated_at": "2026-06-09"
+  }
+]
