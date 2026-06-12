@@ -1,4 +1,4 @@
-const CACHE = 'lam-mc-v1'
+const CACHE = 'lam-mc-v2'
 const PRECACHE = ['/', '/index.html', '/manifest.json']
 
 self.addEventListener('install', e => {

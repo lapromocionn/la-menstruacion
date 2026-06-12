@@ -113,7 +113,7 @@ export default function EcosystemHealth() {
       <div className="card">
         {[
           { id: 'Socio1', name: 'David "LaPromocion"', role: 'environment_infrastructure_setup', status: 'active' },
-          { id: 'Socio2', name: 'Diego "Maestro Mason"', role: 'system_architecture_orchestration', status: 'onboarding' }
+          { id: 'Socio2', name: 'Diego "Maestro Mason"', role: 'system_architecture_orchestration', status: 'active' }
         ].map(agent => (
           <div key={agent.id} className="task-row" style={{ cursor: 'default' }}>
             <div className={`topnav-avatar pill ${agent.id.toLowerCase()}`} style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0, fontFamily: 'var(--mono)', fontSize: 11 }}>
