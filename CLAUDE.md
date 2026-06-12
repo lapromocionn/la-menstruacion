@@ -12,9 +12,10 @@
 - **Autonomy:** High
 
 ### Socio2: Diego "Maestro Mason"
-- **Status:** Pending Onboarding
-- **Skills:** `system_architecture_orchestration` (Expert). Defined behavioral rules, token economy, and multi-agent feedback loops.
+- **Status:** Active
+- **Skills:** `system_architecture_orchestration` (Expert). Defined behavioral rules, token economy, and multi-agent feedback loops. `onboarding_completed` (2026-06-12).
 - **Autonomy:** High
+- **Current Task:** TASK-004 — Dashboard Visual Overhaul
 
 ## 3. Core Protocols (Foundation)
 ### Communication & Connectivity
