@@ -1,10 +1,7 @@
-const CACHE = 'lam-mc-v3'
-const PRECACHE = ['/', '/index.html', '/manifest.json']
+const CACHE = 'lam-mc-v4'
 
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(PRECACHE)).then(() => self.skipWaiting())
-  )
+  e.waitUntil(self.skipWaiting())
 })
 
 self.addEventListener('activate', e => {
@@ -12,8 +9,6 @@ self.addEventListener('activate', e => {
     caches.keys()
       .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
-      .then(() => self.clients.matchAll({ type: 'window' }))
-      .then(clients => clients.forEach(c => c.navigate ? c.navigate(c.url) : c.postMessage({ type: 'SW_UPDATED' })))
   )
 })
 
@@ -21,44 +16,47 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return
   const url = new URL(e.request.url)
 
-  // Network-first for Supabase API calls
-  if (url.hostname.includes('supabase.co')) {
+  // Supabase: always network
+  if (url.hostname.includes('supabase.co')) return
+
+  // index.html: always network-first so the app always loads the latest bundle
+  if (url.pathname === '/' || url.pathname === '/index.html') {
     e.respondWith(
-      fetch(e.request).catch(() => new Response('{}', { headers: { 'Content-Type': 'application/json' } }))
+      fetch(e.request).catch(() => caches.match('/index.html'))
     )
     return
   }
 
-  // Cache-first for same-origin assets
-  if (url.origin === self.location.origin) {
+  // Vite hashed assets (/assets/index-HASH.js): cache-forever (hash changes on update)
+  if (url.pathname.startsWith('/assets/')) {
     e.respondWith(
       caches.match(e.request).then(cached => {
         if (cached) return cached
         return fetch(e.request).then(res => {
-          if (res.ok) {
-            const clone = res.clone()
-            caches.open(CACHE).then(c => c.put(e.request, clone))
-          }
+          if (res.ok) caches.open(CACHE).then(c => c.put(e.request, res.clone()))
           return res
         })
       })
     )
+    return
   }
+
+  // Everything else: network-first
+  e.respondWith(
+    fetch(e.request).catch(() => caches.match(e.request))
+  )
 })
 
-// Push notification handler
 self.addEventListener('push', e => {
   const data = e.data?.json() ?? { title: 'LaMenstruacion.mc', body: 'New update' }
-  const opts = {
+  e.waitUntil(self.registration.showNotification(data.title, {
     body: data.body,
     icon: '/icon-192.png',
     badge: '/icon-192.png',
     tag: data.tag ?? 'lam-notification',
     renotify: true,
-    data: { url: data.url ?? '/' },
-    actions: [{ action: 'open', title: 'Open' }, { action: 'dismiss', title: 'Dismiss' }]
-  }
-  e.waitUntil(self.registration.showNotification(data.title, opts))
+    data: { url: data.url ?? '/' }
+  }))
 })
 
 self.addEventListener('notificationclick', e => {
