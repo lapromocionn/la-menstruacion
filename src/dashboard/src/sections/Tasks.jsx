@@ -47,6 +47,16 @@ function TaskRow({ task }) {
       </div>
       {open && (
         <div className="task-expand">
+          {task.status === 'in_progress' && task.steps?.length > 0 && (
+            <>
+              <div className="task-expand-label">steps</div>
+              <ol className="task-steps">
+                {task.steps.map((step, i) => (
+                  <li key={i} className="task-step">{step}</li>
+                ))}
+              </ol>
+            </>
+          )}
           {task.result && (
             <>
               <div className="task-expand-label">result</div>
@@ -59,7 +69,7 @@ function TaskRow({ task }) {
               <div className="task-expand-value">{task.pending_action}</div>
             </>
           )}
-          {!task.result && !task.pending_action && (
+          {!task.result && !task.pending_action && !task.steps?.length && (
             <div className="task-expand-value" style={{ color: 'var(--text-3)' }}>No details.</div>
           )}
         </div>

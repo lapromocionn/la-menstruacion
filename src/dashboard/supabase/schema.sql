@@ -10,6 +10,7 @@ create table if not exists public.tasks (
   completed_date date,
   result      text,
   pending_action text,
+  steps       jsonb default '[]'::jsonb,
   created_at  timestamptz not null default now(),
   updated_at  date
 );

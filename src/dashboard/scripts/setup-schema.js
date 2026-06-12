@@ -43,10 +43,11 @@ Get your PAT at: https://supabase.com/dashboard/account/tokens
 
 const sql = readFileSync(resolve(__dir, '../supabase/schema.sql'), 'utf8')
 
-// Split into individual statements (skip comments and empty lines)
+// Split into individual statements; strip leading comment lines before filtering
 const statements = sql
   .split(';')
   .map(s => s.trim())
+  .map(s => s.replace(/^(--[^\n]*\n\s*)*/m, '').trim())
   .filter(s => s && !s.startsWith('--'))
 
 console.log(`→ Running ${statements.length} SQL statements on project ${PROJECT_REF}...`)
