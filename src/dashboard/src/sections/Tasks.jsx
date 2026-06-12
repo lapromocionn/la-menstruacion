@@ -47,9 +47,9 @@ function TaskRow({ task }) {
       </div>
       {open && (
         <div className="task-expand">
-          {task.status === 'in_progress' && task.steps?.length > 0 && (
+          {task.steps?.length > 0 && (
             <>
-              <div className="task-expand-label">steps</div>
+              <div className="task-expand-label">{task.status === 'completed' ? 'steps followed' : 'steps'}</div>
               <ol className="task-steps">
                 {task.steps.map((step, i) => (
                   <li key={i} className="task-step">{step}</li>
